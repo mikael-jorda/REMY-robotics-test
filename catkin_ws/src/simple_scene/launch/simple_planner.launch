@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find ur_robot_gripper)/launch/move_group.launch"/>
+    <node pkg="simple_planner" type="simple_planner" name="simple_planner" output="screen"/>
+</launch>
