@@ -1,0 +1,10 @@
+gripper_joint_position:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - gripper_joint
+  gains:
+    gripper_joint:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
