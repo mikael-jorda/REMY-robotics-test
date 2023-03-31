@@ -48,8 +48,10 @@ jobs:
       # Update references
       - name: Git Sumbodule Update
         run: |
-          git pull --recurse-submodules
-          git submodule update --remote --recursive
+          cd catkin_ws
+          git submodule init
+          git submodule update
+          cd ..
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
