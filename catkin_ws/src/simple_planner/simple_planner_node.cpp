@@ -109,8 +109,6 @@ void SimplePlannerNode::OpenGripper()
 
     while (gripper_value_ < gripper_open_command - gripper_tolerance)
     {
-        // gripper_value_ = GetGripperValue();
-        std::cout << gripper_value_ << std::endl;
         gripper_command_publisher_.publish(gripper_msg);
         ros::WallDuration(0.05).sleep();
     }
@@ -123,8 +121,6 @@ void SimplePlannerNode::CloseGripper()
 
     while (gripper_value_ > gripper_close_command + gripper_tolerance)
     {
-        // gripper_value_ = GetGripperValue();
-        std::cout << gripper_value_ << std::endl;
         gripper_command_publisher_.publish(gripper_msg);
         ros::WallDuration(0.05).sleep();
     }
@@ -141,12 +137,11 @@ void SimplePlannerNode::TryMove(const geometry_msgs::Pose& target_pose)
         intermediate_pose.position.x = (GetCurrentEefPose().position.x + target_pose.position.x)/2.0;
         intermediate_pose.position.y = (GetCurrentEefPose().position.y + target_pose.position.y)/2.0;
         intermediate_pose.position.z = (GetCurrentEefPose().position.z + target_pose.position.z)/2.0;
-        TryMove(intermediate_pose);
+        TryMove(intermediate_pose);  // hack to prevent moveit from getting stuck not finding a plan
         TryMove(target_pose);
     }
 
     move_group_.execute(moveit_plan);
-    // ros::WallDuration(0.1).sleep();
 }
 
 void SimplePlannerNode::InitializeCollisions()
@@ -170,7 +165,7 @@ void SimplePlannerNode::InitializeCollisions()
 
   collision_objects_[0].operation = collision_objects_[0].ADD;
 
-  // Add the first table
+  // Add the left table
   moveit_msgs::CollisionObject table;
   table.id = "cafe_table_1";
   table.header.frame_id = "base_link_inertia";
@@ -191,8 +186,7 @@ void SimplePlannerNode::InitializeCollisions()
 
   collision_objects_.push_back(table);
 
-  //Add the second table
-
+  // Add the right table
   table.id = "cafe_table_2";
   table.header.frame_id = "base_link_inertia";
   table.primitive_poses[0].position.y = 0.6; 

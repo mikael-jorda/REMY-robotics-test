@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 
   // initialize pick and place poses for orientation
   const double gripper_z_offset = 0.2;
-  const double robot_z_in_world = 0.7;
+  const double robot_z_in_world = 0.7;  // offset between the simulation world (blocks pos reference) and the robot world in Z direction
   geometry_msgs::Pose place_pose = eef_home_pose;
   place_pose.position.x = 0.35;
   place_pose.position.y = 0.65;
@@ -59,7 +59,7 @@ int main(int argc, char** argv)
     pick_pose.position.y = blocks_poses[i].position.y;
     pick_pose.position.z = blocks_poses[i].position.z - robot_z_in_world;
 
-    // find desired pose for next block place
+    // find desired pose for next block place, place them on a line
     place_pose.position.y -= 0.08;
 
     // pick and place
