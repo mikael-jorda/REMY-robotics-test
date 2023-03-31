@@ -1,51 +1,39 @@
-# Robotics Software Engineer Task
+# Pick and place task with UR5e robot and rg2 gripper
 
-You are asked to design and implement a pick-and-place application using a Gazebo simulation environment. The expected result of this task is a docker image and a GitHub repo with the source code.
-
-## Goal
-
-The scope of this assignment is limited to the robot control part of a continuous pick-and-place cycle. There are two tables; one with 5 blocks and one empty. The goal is to move all of the blocks onto the other table.
-
-No vision/perception is needed. Poses of the blocks are accessible through the ros_service:
-
-`/gazebo/get_model_state`
-
-The gripper can be controlled through a topic:
-
-`/gripper_joint_position/command`
+This implements a pick and place task for a UR5e robot and rg2 gripper moving 5 blocks from a table to another one.
 
 ## Build && Run
 
-### Using docker image
+### Using downloaded docker image
 
 ```bash
-$ docker pull ghcr.io/remyrobotics/robotics-test:latest
+$ docker pull ghcr.io/mikael-jorda/robotics-test_solution:latest
 $ xhost local:root
 $ docker-compose up
 ```
 
-Alternatively, you can build manually with the given Dockerfile.
+### Building docker image locally
 
-### Building from Source
-
+Alternatively, you can build the docker image yourself
 ```bash
-$ ./build.sh
+$ sh build_docker_image.sh
+$ docker-compose -f dpcker-compose-local.yml up
+```
+
+### Building from source (not tested)
+
+Or you can build and run without docker images
+```bash
+$ sh build_without_docker.sh
 $ cd catkin_ws
 $ catkin build
 $ source devel/setup.bash
 $ roslaunch simple_scene gazebo.launch
 ```
 
-## Evaluation
-
-You can use any 3rd party package. We would like to see how you design the system and the planning & control pipeline.
-
-## Submission
-
-A docker image and the source code are required. Please explain your design choices. If it is not possible due to circumstances, please send us source codes with clear instructions and explanations.
-
-## Additional Questions
-
-- How would you improve the efficiency and reliability?
-- What would you do if we needed multiple robots in a system?
-- How would you deploy the application to multiple physical locations? What is needed to scale it?
+and in another terminal
+```bash
+$ cd catkin_ws
+$ source devel/setup.bash
+$ roslaunch simple_scene simple_planner.launch
+```
