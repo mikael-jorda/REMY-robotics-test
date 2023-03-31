@@ -2,12 +2,12 @@ version: '3'
 
 services:
   ros-master:
-    image: ghcr.io/mikael-jorda/robotics-test_solution:latest
+    image: robotics-test_solution:latest
     command: stdbuf -o L roscore
     network_mode: host
 
   gazebo:
-    image: ghcr.io/mikael-jorda/robotics-test_solution:latest
+    image: robotics-test_solution:latest
     depends_on:
       - ros-master
     network_mode: host
@@ -24,7 +24,7 @@ services:
     runtime: nvidia
 
   simple_planner:
-    image: ghcr.io/mikael-jorda/robotics-test_solution:latest
+    image: robotics-test_solution:latest
     depends_on:
       - gazebo
     network_mode: host
