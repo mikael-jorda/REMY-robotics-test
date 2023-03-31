@@ -7,7 +7,7 @@ This implements a pick and place task for a UR5e robot and rg2 gripper moving 5 
 ### Using downloaded docker image
 
 ```bash
-docker pull ghcr.io/mikael-jorda/robotics-test_solution:latest
+docker pull ghcr.io/mikael-jorda/robotics-test_solution:main
 xhost local:root
 docker-compose up
 ```
